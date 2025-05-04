@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Registro() {
     const [formData, setFormData] = useState({
@@ -8,14 +9,27 @@ export default function Registro() {
         senha: "",
     });
 
+    const router = useRouter();
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Dados enviados:", formData);
-        alert("Cadastro realizado com sucesso!");
+
+        const response = await fetch("/api/usuarios", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+            alert("Cadastro realizado com sucesso!");
+            router.push("/usuarios"); // Redireciona para a listagem de usuários
+        } else {
+            alert("Erro ao cadastrar usuário. Tente novamente.");
+        }
     };
 
     return (
