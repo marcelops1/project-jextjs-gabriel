@@ -22,7 +22,7 @@ export default function Login() {
         const data = await response.json();
         if (response.ok) {
             localStorage.setItem("token", data.token); // Armazena token
-            router.push("/usuarios/listar"); // Redireciona para listagem
+            router.push("/usuarios/perfil"); // Redireciona para listagem
         } else {
             alert(data.error);
         }

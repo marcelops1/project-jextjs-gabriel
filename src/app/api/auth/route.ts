@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
+const SECRET_KEY = process.env.SECRET_KEY!; // ⚠️ Certifique-se de ter essa variável no .env
 
 export async function POST(req: Request) {
     try {
@@ -21,8 +23,8 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Credenciais inválidas!" }, { status: 401 });
         }
 
-        // Gera um token simples (ID do usuário) apenas para identificação mínima
-        const token = usuario.id.toString();
+        // 🔥 Correção: Gera um JWT válido com o ID do usuário e um tempo de expiração
+        const token = jwt.sign({ id: usuario.id }, SECRET_KEY, { expiresIn: "1h" });
 
         return NextResponse.json({ token });
     } catch (error) {
