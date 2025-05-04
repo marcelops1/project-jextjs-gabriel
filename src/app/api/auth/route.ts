@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"; // 🔥 Correto
 
 const prisma = new PrismaClient();
 const SECRET_KEY = process.env.SECRET_KEY!; // ⚠️ Certifique-se de ter essa variável no .env
