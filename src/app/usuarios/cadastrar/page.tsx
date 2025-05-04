@@ -26,7 +26,7 @@ export default function Registro() {
 
         if (response.ok) {
             alert("Cadastro realizado com sucesso!");
-            router.push("/usuarios"); // Redireciona para a listagem de usuários
+            router.push("/usuarios/listar"); // Redireciona para a listagem de usuários
         } else {
             alert("Erro ao cadastrar usuário. Tente novamente.");
         }
