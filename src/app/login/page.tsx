@@ -22,6 +22,7 @@ export default function Login() {
         const data = await response.json();
         if (response.ok) {
             localStorage.setItem("token", data.token); // Armazena token
+            alert("Login realizado com sucesso!"); // 🔥 Mensagem de sucesso ao logar
             router.push("/usuarios/perfil"); // Redireciona para listagem
         } else {
             alert(data.error);
